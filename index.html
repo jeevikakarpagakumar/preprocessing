@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carnatic Music Preprocessing Techniques</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#111823; --ink:#e8f0ff; --ink-dim:#a9b6cc;
+      --accent:#5dafff; --accent-2:#7affd0; --muted:#1a2331; --border:#223043;
+      --success:#44d19a; --warn:#ffb86b; --danger:#ff6b6b; --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .site-header{padding:28px 20px 10px;max-width:1100px;margin:0 auto}
+    h1{margin:0 0 6px;font-size:clamp(22px,3vw,34px);letter-spacing:.2px}
+    .tagline{margin:0;color:var(--ink-dim)}
+    .toolbar{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(180deg,var(--accent),#3d82d8);
+      color:#081018;border:0;padding:10px 14px;border-radius:12px;font-weight:600;cursor:pointer
+    }
+    .btn-ghost{background:var(--muted);color:var(--ink);border:1px solid var(--border)}
+    .btn:disabled,.btn-ghost:disabled{opacity:.5;cursor:not-allowed}
+    .grid{max-width:1100px;margin:20px auto;padding:0 20px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .card{
+      background:linear-gradient(180deg,var(--card),#0f1622);border:1px solid var(--border);
+      border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 10px 24px rgba(0,0,0,.25)
+    }
+    .card-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .card h2{margin:0;font-size:18px}
+    .pill{border:1px solid var(--border);padding:4px 8px;border-radius:20px;color:var(--ink-dim);font-size:12px}
+    .meta{display:flex;justify-content:space-between;color:var(--ink-dim);font-size:12px;min-height:18px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{font-size:11px;border:1px solid var(--border);padding:3px 8px;border-radius:999px;color:var(--ink-dim)}
+    .winner{border-color:transparent;background:linear-gradient(180deg,rgba(125,255,208,.08),rgba(93,175,255,.08)); position:relative}
+    .winner::after{
+      content:"Recommended"; position:absolute; top:12px; right:12px; font-size:11px; padding:3px 8px; border-radius:999px;
+      background:rgba(125,255,208,.15); color:var(--accent-2); border:1px solid rgba(125,255,208,.35)
+    }
+    footer{max-width:1100px;margin:10px auto 40px;padding:0 20px;color:var(--ink-dim);font-size:13px}
+    .ok{color:var(--success)} .warn{color:var(--warn)} .err{color:var(--danger)}
+    .mini{font-size:11px; opacity:.9}
+    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b1220;border:1px solid var(--border);border-bottom-color:#151f33;border-radius:6px;padding:1px 6px}
+    .note{font-size:12px;color:var(--ink-dim)}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Carnatic Music Preprocessing Techniques</h1>
+    <p class="tagline">Press a button to play each track. Replace the <span class="kbd">href</span> values below with your own public links.</p>
+    <div class="toolbar">
+      <button id="stopAll" class="btn btn-ghost">Stop All</button>
+      <span class="badge">Original: .mp3 only • Processed: .wav only</span>
+    </div>
+  </header>
+
+  <main class="grid" id="cards">
+    <!-- ORIGINAL (.mp3 ONLY) -->
+    <section class="card" data-technique="original">
+      <div class="card-head">
+        <h2>Original</h2>
+        <span class="pill">.mp3</span>
+      </div>
+
+      <!-- Replace this href with your .mp3 URL -->
+      <a class="note" id="link-original" href="./samples/Chaitra Sairam - Kamalamba Samrakshatu.mp3" target="_blank" rel="noopener">href: https://example.com/path/to/original.mp3</a>
+
+      <div class="meta">
+        <span class="status">Idle</span>
+        <span class="duration"></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+
+      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+
+    <!-- HPSS (.wav ONLY) -->
+    <section class="card" data-technique="hpss">
+      <div class="card-head">
+        <h2>HPSS Vocals</h2>
+        <span class="pill">.wav</span>
+      </div>
+
+      <!-- Replace this href with your .wav URL -->
+      <a class="note" id="link-hpss" href="./samples/hpss.wav" target="_blank" rel="noopener">href: https://example.com/path/to/hpss.wav</a>
+
+      <div class="meta">
+        <span class="status">Idle</span>
+        <span class="duration"></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+
+      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+
+    <!-- Band-Pass (.wav ONLY) -->
+    <section class="card" data-technique="bandpass">
+      <div class="card-head">
+        <h2>Band-Pass Vocals</h2>
+        <span class="pill">.wav</span>
+      </div>
+
+      <!-- Replace this href with your .wav URL -->
+      <a class="note" id="link-bandpass" href="./samples/bandpass.wav" target="_blank" rel="noopener">href: https://example.com/path/to/bandpass.wav</a>
+
+      <div class="meta">
+        <span class="status">Idle</span>
+        <span class="duration"></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+
+      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+
+ 
+    <!-- Mid/Side (.wav ONLY) -->
+    <section class="card" data-technique="midside">
+      <div class="card-head">
+        <h2>Mid/Side Vocals</h2>
+        <span class="pill">.wav</span>
+      </div>
+
+      <!-- Replace this href with your .wav URL -->
+      <a class="note" id="link-midside" href="./samples/midside.wav" target="_blank" rel="noopener">href: https://example.com/path/to/midside.wav</a>
+
+      <div class="meta">
+        <span class="status">Idle</span>
+        <span class="duration"></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+
+      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+
+    <!-- Demucs (.wav ONLY) -->
+    <section class="card winner" data-technique="demucs">
+      <div class="card-head">
+        <h2>Demucs</h2>
+        <span class="pill">.wav</span>
+      </div>
+
+      <!-- Replace this href with your .wav URL -->
+      <a class="note" id="link-demucs" href="./samples/demucs.wav" target="_blank" rel="noopener">href: https://example.com/path/to/demucs.wav</a>
+
+      <div class="meta">
+        <span class="status">Idle</span>
+        <span class="duration"></span>
+      </div>
+
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+
+      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+    </section>
+  </main>
+
+  <footer>
+    <p class="mini">
+      How to use: edit this file and replace each <span class="kbd">href</span> with your public audio link.
+      Original must end with <span class="kbd">.mp3</span>; others must end with <span class="kbd">.wav</span>.
+      Links should be public and CORS-accessible (GitHub Pages works great).
+    </p>
+  </footer>
+
+  <script>
+    // Helper: format seconds as M:SS
+    const fmt = s => {
+      if(!isFinite(s)) return "";
+      const m = Math.floor(s/60);
+      const ss = Math.floor(s%60).toString().padStart(2,"0");
+      return `${m}:${ss}`;
+    };
+
+    const stopAllBtn = document.getElementById("stopAll");
+    const cards = Array.from(document.querySelectorAll(".card"));
+
+    function setControls(card, {loaded=false, playing=false}={}){
+      const play  = card.querySelector(".play");
+      const pause = card.querySelector(".pause");
+      const reset = card.querySelector(".reset");
+      play.disabled  = !loaded || playing;
+      pause.disabled = !loaded || !playing;
+      reset.disabled = !loaded;
+    }
+
+    function enforceExtension(url, ext){
+      try{
+        const u = new URL(url);
+        return u.pathname.toLowerCase().endsWith(ext);
+      }catch(e){
+        // allow relative URLs (like samples/x.wav)
+        return url.toLowerCase().endsWith(ext);
+      }
+    }
+
+    function loadAndPlay(card){
+      const key = card.dataset.technique;
+      const audio = card.querySelector(".player");
+      const status = card.querySelector(".status");
+      const dur = card.querySelector(".duration");
+
+      // Find the anchor with the link for this technique
+      const link = card.querySelector("a.note");
+      const href = (link?.getAttribute("href") || "").trim();
+
+      if(!href){
+        status.innerHTML = '<span class="warn">No href set</span>';
+        setControls(card,{loaded:false,playing:false});
+        return;
+      }
+
+      // Validate extension: original must be .mp3; others .wav
+      const mustExt = key === "original" ? ".mp3" : ".wav";
+      if(!enforceExtension(href, mustExt)){
+        status.innerHTML = `<span class="err">Wrong file type. Expected ${mustExt}</span>`;
+        setControls(card,{loaded:false,playing:false});
+        return;
+      }
+
+      // Load
+      status.textContent = "Loading…";
+      dur.textContent = "";
+      audio.src = href;
+      audio.load();
+
+      audio.onloadedmetadata = ()=>{
+        dur.textContent = fmt(audio.duration);
+        audio.currentTime = 0;
+        audio.play().then(()=>{
+          status.textContent = "Playing…";
+          setControls(card,{loaded:true,playing:true});
+        }).catch(()=>{
+          status.innerHTML = '<span class="err">Playback blocked or CORS issue</span>';
+          setControls(card,{loaded:true,playing:false});
+        });
+      };
+      audio.onerror = ()=>{
+        status.innerHTML = '<span class="err">Load failed (CORS or URL)</span>';
+        setControls(card,{loaded:false,playing:false});
+      };
+
+      // Sync UI on natural events
+      audio.onpause = ()=>{
+        if(Math.floor(audio.currentTime) === 0 && audio.src) {
+          status.textContent = "Ready";
+        } else {
+          status.textContent = "Paused";
+        }
+        setControls(card,{loaded:true,playing:false});
+      };
+      audio.onended = ()=>{
+        status.textContent = "Ended";
+        setControls(card,{loaded:true,playing:false});
+      };
+    }
+
+    function pauseCard(card){
+      const audio = card.querySelector(".player");
+      audio.pause();
+    }
+
+    function resetCard(card){
+      const audio = card.querySelector(".player");
+      audio.pause();
+      audio.currentTime = 0;
+      card.querySelector(".status").textContent = "Ready";
+      setControls(card,{loaded:true,playing:false});
+    }
+
+    // Wire per-card buttons
+    for(const c of cards){
+      c.querySelector(".play").addEventListener("click", ()=>loadAndPlay(c));
+      c.querySelector(".pause").addEventListener("click", ()=>pauseCard(c));
+      c.querySelector(".reset").addEventListener("click", ()=>resetCard(c));
+    }
+
+    // Stop All
+    stopAllBtn.addEventListener("click", ()=>{
+      for(const c of cards){
+        const audio = c.querySelector(".player");
+        if(!audio.src) continue;
+        audio.pause();
+        audio.currentTime = 0;
+        c.querySelector(".status").textContent = "Stopped";
+        setControls(c,{loaded:true,playing:false});
+      }
+    });
+  </script>
+</body>
+</html>
