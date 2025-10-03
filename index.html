@@ -48,146 +48,106 @@
 <body>
   <header class="site-header">
     <h1>Carnatic Music Preprocessing Techniques</h1>
-    <p class="tagline">Press a button to play each track. Replace the <span class="kbd">href</span> values below with your own public links.</p>
+    <p class="tagline">Press a button to play each track. Files are in <code>samples/</code>.</p>
     <div class="toolbar">
       <button id="stopAll" class="btn btn-ghost">Stop All</button>
-      <span class="badge">Original: .mp3 only • Processed: .wav only</span>
+      <span class="badge">Original: .mp3 • Processed: .wav</span>
     </div>
   </header>
 
   <main class="grid" id="cards">
-    <!-- ORIGINAL (.mp3 ONLY) -->
+
+    <!-- ORIGINAL -->
     <section class="card" data-technique="original">
-      <div class="card-head">
-        <h2>Original</h2>
-        <span class="pill">.mp3</span>
-      </div>
-
-      <!-- Replace this href with your .mp3 URL -->
-      <a class="note" id="link-original" href="./samples/Chaitra Sairam - Kamalamba Samrakshatu.mp3" target="_blank" rel="noopener">href: https://example.com/path/to/original.mp3</a>
-
-      <div class="meta">
-        <span class="status">Idle</span>
-        <span class="duration"></span>
-      </div>
-
+      <div class="card-head"><h2>Original</h2><span class="pill">.mp3</span></div>
+      <a class="note" id="link-original" href="./samples/original.mp3" target="_blank" rel="noopener">href: ./samples/original.mp3</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
       <div class="controls">
         <button class="btn play">Play</button>
         <button class="btn btn-ghost pause" disabled>Pause</button>
         <button class="btn btn-ghost reset" disabled>Reset</button>
       </div>
-
-      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+      <audio class="player" preload="metadata"></audio>
     </section>
 
-    <!-- HPSS (.wav ONLY) -->
+    <!-- HPSS -->
     <section class="card" data-technique="hpss">
-      <div class="card-head">
-        <h2>HPSS Vocals</h2>
-        <span class="pill">.wav</span>
-      </div>
-
-      <!-- Replace this href with your .wav URL -->
-      <a class="note" id="link-hpss" href="./samples/hpss.wav" target="_blank" rel="noopener">href: https://example.com/path/to/hpss.wav</a>
-
-      <div class="meta">
-        <span class="status">Idle</span>
-        <span class="duration"></span>
-      </div>
-
+      <div class="card-head"><h2>HPSS Vocals</h2><span class="pill">.wav</span></div>
+      <a class="note" id="link-hpss" href="./samples/hpss.wav" target="_blank" rel="noopener">href: ./samples/hpss.wav</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
       <div class="controls">
         <button class="btn play">Play</button>
         <button class="btn btn-ghost pause" disabled>Pause</button>
         <button class="btn btn-ghost reset" disabled>Reset</button>
       </div>
-
-      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+      <audio class="player" preload="metadata"></audio>
     </section>
 
-    <!-- Band-Pass (.wav ONLY) -->
+    <!-- Band-Pass -->
     <section class="card" data-technique="bandpass">
-      <div class="card-head">
-        <h2>Band-Pass Vocals</h2>
-        <span class="pill">.wav</span>
-      </div>
-
-      <!-- Replace this href with your .wav URL -->
-      <a class="note" id="link-bandpass" href="./samples/bandpass.wav" target="_blank" rel="noopener">href: https://example.com/path/to/bandpass.wav</a>
-
-      <div class="meta">
-        <span class="status">Idle</span>
-        <span class="duration"></span>
-      </div>
-
+      <div class="card-head"><h2>Band-Pass Vocals</h2><span class="pill">.wav</span></div>
+      <a class="note" id="link-bandpass" href="./samples/bandpass.wav" target="_blank" rel="noopener">href: ./samples/bandpass.wav</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
       <div class="controls">
         <button class="btn play">Play</button>
         <button class="btn btn-ghost pause" disabled>Pause</button>
         <button class="btn btn-ghost reset" disabled>Reset</button>
       </div>
-
-      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+      <audio class="player" preload="metadata"></audio>
     </section>
 
- 
-    <!-- Mid/Side (.wav ONLY) -->
+    <!-- Mid/Side -->
     <section class="card" data-technique="midside">
-      <div class="card-head">
-        <h2>Mid/Side Vocals</h2>
-        <span class="pill">.wav</span>
-      </div>
-
-      <!-- Replace this href with your .wav URL -->
-      <a class="note" id="link-midside" href="./samples/midside.wav" target="_blank" rel="noopener">href: https://example.com/path/to/midside.wav</a>
-
-      <div class="meta">
-        <span class="status">Idle</span>
-        <span class="duration"></span>
-      </div>
-
+      <div class="card-head"><h2>Mid/Side Vocals</h2><span class="pill">.wav</span></div>
+      <a class="note" id="link-midside" href="./samples/midside.wav" target="_blank" rel="noopener">href: ./samples/midside.wav</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
       <div class="controls">
         <button class="btn play">Play</button>
         <button class="btn btn-ghost pause" disabled>Pause</button>
         <button class="btn btn-ghost reset" disabled>Reset</button>
       </div>
-
-      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+      <audio class="player" preload="metadata"></audio>
     </section>
 
-    <!-- Demucs (.wav ONLY) -->
+
+
+    <!-- Audacity -->
+    <section class="card" data-technique="audacity">
+      <div class="card-head"><h2>Audacity</h2><span class="pill">.wav</span></div>
+      <a class="note" id="link-audacity" href="./samples/audacity_small.wav" target="_blank" rel="noopener">href: ./samples/audacity.wav</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
+      <div class="controls">
+        <button class="btn play">Play</button>
+        <button class="btn btn-ghost pause" disabled>Pause</button>
+        <button class="btn btn-ghost reset" disabled>Reset</button>
+      </div>
+      <audio class="player" preload="metadata"></audio>
+    </section>
+
+    <!-- Demucs -->
     <section class="card winner" data-technique="demucs">
-      <div class="card-head">
-        <h2>Demucs</h2>
-        <span class="pill">.wav</span>
-      </div>
-
-      <!-- Replace this href with your .wav URL -->
-      <a class="note" id="link-demucs" href="./samples/demucs_small.wav" target="_blank" rel="noopener">href: https://example.com/path/to/demucs.wav</a>
-
-      <div class="meta">
-        <span class="status">Idle</span>
-        <span class="duration"></span>
-      </div>
-
+      <div class="card-head"><h2>Demucs</h2><span class="pill">.wav</span></div>
+      <a class="note" id="link-demucs" href="./samples/demucs_small.wav" target="_blank" rel="noopener">href: ./samples/demucs.wav</a>
+      <div class="meta"><span class="status">Idle</span><span class="duration"></span></div>
       <div class="controls">
         <button class="btn play">Play</button>
         <button class="btn btn-ghost pause" disabled>Pause</button>
         <button class="btn btn-ghost reset" disabled>Reset</button>
       </div>
-
-      <audio class="player" preload="metadata" crossorigin="anonymous"></audio>
+      <audio class="player" preload="metadata"></audio>
     </section>
+
   </main>
 
   <footer>
     <p class="mini">
-      How to use: edit this file and replace each <span class="kbd">href</span> with your public audio link.
-      Original must end with <span class="kbd">.mp3</span>; others must end with <span class="kbd">.wav</span>.
-      Links should be public and CORS-accessible (GitHub Pages works great).
+      Place audio files in <code>samples/</code> with normalized names.  
+      <span class="kbd">original.mp3</span> for the source;  
+      <span class="kbd">.wav</span> for all preprocessing methods.
     </p>
   </footer>
 
   <script>
-    // Helper: format seconds as M:SS
     const fmt = s => {
       if(!isFinite(s)) return "";
       const m = Math.floor(s/60);
@@ -209,10 +169,9 @@
 
     function enforceExtension(url, ext){
       try{
-        const u = new URL(url);
+        const u = new URL(url, window.location.href);
         return u.pathname.toLowerCase().endsWith(ext);
       }catch(e){
-        // allow relative URLs (like samples/x.wav)
         return url.toLowerCase().endsWith(ext);
       }
     }
@@ -222,8 +181,6 @@
       const audio = card.querySelector(".player");
       const status = card.querySelector(".status");
       const dur = card.querySelector(".duration");
-
-      // Find the anchor with the link for this technique
       const link = card.querySelector("a.note");
       const href = (link?.getAttribute("href") || "").trim();
 
@@ -233,7 +190,6 @@
         return;
       }
 
-      // Validate extension: original must be .mp3; others .wav
       const mustExt = key === "original" ? ".mp3" : ".wav";
       if(!enforceExtension(href, mustExt)){
         status.innerHTML = `<span class="err">Wrong file type. Expected ${mustExt}</span>`;
@@ -241,7 +197,6 @@
         return;
       }
 
-      // Load
       status.textContent = "Loading…";
       dur.textContent = "";
       audio.src = href;
@@ -262,14 +217,8 @@
         status.innerHTML = '<span class="err">Load failed (CORS or URL)</span>';
         setControls(card,{loaded:false,playing:false});
       };
-
-      // Sync UI on natural events
       audio.onpause = ()=>{
-        if(Math.floor(audio.currentTime) === 0 && audio.src) {
-          status.textContent = "Ready";
-        } else {
-          status.textContent = "Paused";
-        }
+        status.textContent = "Paused";
         setControls(card,{loaded:true,playing:false});
       };
       audio.onended = ()=>{
@@ -278,11 +227,7 @@
       };
     }
 
-    function pauseCard(card){
-      const audio = card.querySelector(".player");
-      audio.pause();
-    }
-
+    function pauseCard(card){ card.querySelector(".player").pause(); }
     function resetCard(card){
       const audio = card.querySelector(".player");
       audio.pause();
@@ -291,14 +236,12 @@
       setControls(card,{loaded:true,playing:false});
     }
 
-    // Wire per-card buttons
     for(const c of cards){
       c.querySelector(".play").addEventListener("click", ()=>loadAndPlay(c));
       c.querySelector(".pause").addEventListener("click", ()=>pauseCard(c));
       c.querySelector(".reset").addEventListener("click", ()=>resetCard(c));
     }
 
-    // Stop All
     stopAllBtn.addEventListener("click", ()=>{
       for(const c of cards){
         const audio = c.querySelector(".player");
